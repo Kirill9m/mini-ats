@@ -14,7 +14,6 @@ Core features:
 
     Som admin kan jag göra allt som kunder kan göra åt dem
 
-
 Guidelines:
 
     Använd Supabase som backend (tex authentication & databas)Utveckla så mycket som möjligt mha av AI-verktyg för att kunna bygga så snabbt som möjligt (t.ex. Lovable, Cursor, Claude Code, Codex, Copilot)
@@ -22,7 +21,6 @@ Guidelines:
     Känn dig fri att göra valfria antaganden kring kunder, önskemål, behov, osv.
 
     Känn dig fri att bygga ut ytterligare funktionalitet du anser vara lämplig i ett ATS om du har tid över
-
 
 Leverans:
 

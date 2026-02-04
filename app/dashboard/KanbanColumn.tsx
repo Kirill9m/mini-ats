@@ -22,12 +22,7 @@ export default function KanbanColumn({
 
       <div className="space-y-3">
         {candidates.map((c) => (
-          <CandidateCard
-            key={c.id}
-            candidate={c}
-            jobs={jobs}
-            onMove={onMove}
-          />
+          <CandidateCard key={c.id} candidate={c} jobs={jobs} onMove={onMove} />
         ))}
 
         {candidates.length === 0 && (

@@ -52,7 +52,9 @@ export default function CandidateCard({
           </div>
 
           <div className="mt-1 flex items-center gap-2 text-xs text-slate-600">
-            <span className="truncate">{candidate.subtitle ?? jobTitle ?? ""}</span>
+            <span className="truncate">
+              {candidate.subtitle ?? jobTitle ?? ""}
+            </span>
             {candidate.linkedinUrl && (
               <a
                 href={candidate.linkedinUrl}

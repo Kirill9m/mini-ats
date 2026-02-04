@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AppShell from "./components/app-shell/AppShell";
 
-
 export const metadata: Metadata = {
   title: "RecruitFlow",
   description: "Applicant tracking system",

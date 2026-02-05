@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Candidate, CandidateStage, Job, STAGES } from "@/app/lib/types/ats";
 import KanbanColumn from "./KanbanColumn";
 import KanbanFilters from "./KanbanFilters";
+import NewCandidateModal from "../components/kanban/NewCandidateModal";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -12,30 +13,32 @@ function normalize(s: string) {
 export default function KanbanBoard({
   jobs,
   initialCandidates,
+  onCreateCandidate,
+  onMoveCandidate,
 }: {
   jobs: Job[];
   initialCandidates: Candidate[];
+  onCreateCandidate: (c: Candidate) => void;
+  onMoveCandidate: (id: string, newStage: CandidateStage) => void;
 }) {
-  const [candidates, setCandidates] = useState<Candidate[]>(initialCandidates);
-
   const [selectedJobId, setSelectedJobId] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [newCandidateOpen, setNewCandidateOpen] = useState(false);
 
   const filteredCandidates = useMemo(() => {
     const q = normalize(search);
-    return candidates.filter((c) => {
+    return initialCandidates.filter((c) => {
       const jobOk = !selectedJobId || c.jobId === selectedJobId;
       const nameOk = !q || normalize(c.name).includes(q);
       return jobOk && nameOk;
     });
-  }, [candidates, selectedJobId, search]);
+  }, [initialCandidates, selectedJobId, search]);
 
   const byStage = useMemo(() => {
     const map = new Map<CandidateStage, Candidate[]>();
     for (const s of STAGES) map.set(s.key, []);
     for (const c of filteredCandidates) map.get(c.stage)?.push(c);
 
-    // Сортировка внутри колонки: новые сверху
     for (const s of STAGES) {
       const arr = map.get(s.key) ?? [];
       arr.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
@@ -46,20 +49,15 @@ export default function KanbanBoard({
   }, [filteredCandidates]);
 
   function moveCandidate(id: string, dir: -1 | 1) {
-    setCandidates((prev) => {
-      const idx = prev.findIndex((c) => c.id === id);
-      if (idx === -1) return prev;
+    const current = initialCandidates.find((c) => c.id === id);
+    if (!current) return;
 
-      const current = prev[idx];
-      const stageIndex = STAGES.findIndex((s) => s.key === current.stage);
-      const nextIndex = stageIndex + dir;
-      if (nextIndex < 0 || nextIndex >= STAGES.length) return prev;
+    const stageIndex = STAGES.findIndex((s) => s.key === current.stage);
+    const nextIndex = stageIndex + dir;
+    if (nextIndex < 0 || nextIndex >= STAGES.length) return;
 
-      const nextStage = STAGES[nextIndex].key;
-      const copy = [...prev];
-      copy[idx] = { ...current, stage: nextStage };
-      return copy;
-    });
+    const nextStage = STAGES[nextIndex].key;
+    onMoveCandidate(id, nextStage);
   }
 
   const totalVisible = filteredCandidates.length;
@@ -110,6 +108,12 @@ export default function KanbanBoard({
           );
         })}
       </div>
+      <NewCandidateModal
+        open={newCandidateOpen}
+        onClose={() => setNewCandidateOpen(false)}
+        jobs={jobs}
+        onCreate={onCreateCandidate}
+      />
     </div>
   );
 }

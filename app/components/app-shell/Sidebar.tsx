@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard" },
@@ -12,9 +13,16 @@ export default function Sidebar() {
   return (
     <aside className="min-h-screen w-64 bg-slate-900 text-slate-100">
       <div className="flex h-full flex-col">
-        <div className="px-6 py-6">
-          <div className="text-xl font-semibold">RecruitFlow ATS</div>
-          <div className="mt-1 text-xs text-slate-300">Hiring pipeline</div>
+        <div className="px-6 py-6 flex flex-col-reverse items-center border-b gap-1.5 border-slate-800">
+          <div className="text-xl font-semibold">mini-ATS</div>
+          <Image
+            src="/icon.png"
+            priority
+            alt="RecruitFlow Logo"
+            width={32}
+            height={32}
+            className="mt-4 rounded-2xl"
+          />
         </div>
 
         <nav className="flex-1 px-3">

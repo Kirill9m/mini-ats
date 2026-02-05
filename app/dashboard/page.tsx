@@ -1,7 +1,6 @@
-import TopHeader from "@/app/components/app-shell/TopHeader";
-import KanbanFilters from "./KanbanFilters";
+import TopHeader from "../components/app-shell/TopHeader";
+import { mockJobs, mockCandidates } from "../lib/types/mock/kanban";
 import KanbanBoard from "./KanbanBoard";
-import { mockCandidates, mockJobs } from "../lib/types/mock/kanban";
 
 export default function KanbanPage() {
   return (
@@ -14,8 +13,6 @@ export default function KanbanPage() {
           </button>
         }
       />
-
-      <KanbanFilters jobs={mockJobs} />
 
       <div className="mt-4">
         <KanbanBoard jobs={mockJobs} initialCandidates={mockCandidates} />

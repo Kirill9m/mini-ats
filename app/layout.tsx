@@ -3,7 +3,7 @@ import "./globals.css";
 import AppShell from "./components/app-shell/AppShell";
 
 export const metadata: Metadata = {
-  title: "RecruitFlow",
+  title: "mini-ATS",
   description: "Applicant tracking system",
 };
 

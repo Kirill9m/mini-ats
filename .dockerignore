@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+.next
+.env*.local
+README.md
+.gitignore
+.prettierrc
+.prettierignore
+.husky

@@ -1,7 +1,7 @@
 import { Candidate, Job, STAGES } from "@/app/lib/types/ats";
+import { Linkedin } from "lucide-react";
 
 function formatDate(iso: string) {
-  // ISO -> YYYY-MM-DD (как в макете)
   return iso.slice(0, 10);
 }
 
@@ -60,9 +60,10 @@ export default function CandidateCard({
                 href={candidate.linkedinUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-700 underline"
+                className="inline-flex items-center gap-1 text-slate-700 hover:text-slate-900"
+                aria-label="LinkedIn"
               >
-                LinkedIn
+                <Linkedin className="h-4 w-4" />
               </a>
             )}
           </div>
